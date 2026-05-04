@@ -450,13 +450,315 @@
   }
   footer span { color: var(--wheat); }
 
+  /* ── RADIO ── */
+  #page-radio { padding: 5rem 2rem 4rem; max-width: 900px; margin: 0 auto; }
+
+  .radio-hero {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .radio-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--wheat);
+    flex-shrink: 0;
+  }
+
+  .radio-title-block {}
+  .radio-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 0.9;
+    color: var(--harvest);
+    letter-spacing: 0.03em;
+  }
+  .radio-subtitle {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 0.4rem;
+  }
+
+  .radio-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+    flex-shrink: 0;
+  }
+  .status-dot.offline { background: var(--muted); animation: none; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .status-text {
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Player */
+  .radio-player {
+    background: var(--earth);
+    border: 1px solid var(--field);
+    border-left: 4px solid var(--harvest);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .now-playing-label {
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--wheat);
+    margin-bottom: 0.6rem;
+  }
+
+  .now-playing-song {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 0.2rem;
+    min-height: 2rem;
+  }
+
+  .now-playing-artist {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    min-height: 1rem;
+  }
+
+  .player-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .play-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--harvest);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--soil);
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .play-btn:hover { background: var(--wheat); transform: scale(1.05); }
+
+  .volume-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex: 1;
+  }
+
+  .volume-icon { font-size: 0.8rem; color: var(--muted); }
+
+  .volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 3px;
+    background: var(--field);
+    outline: none;
+    border-radius: 2px;
+  }
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--wheat);
+    cursor: pointer;
+  }
+
+  .stream-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1rem;
+  }
+
+  /* Song history grid */
+  .radio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 640px) { .radio-grid { grid-template-columns: 1fr; } }
+
+  .radio-panel {
+    background: var(--earth);
+    border: 1px solid var(--field);
+  }
+
+  .radio-panel-header {
+    padding: 0.8rem 1.2rem;
+    border-bottom: 1px solid var(--field);
+    font-size: 0.58rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--wheat);
+  }
+
+  .song-list { list-style: none; }
+
+  .song-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 1.2rem;
+    border-bottom: 1px solid var(--field);
+    transition: background 0.15s;
+  }
+  .song-item:last-child { border-bottom: none; }
+  .song-item:hover { background: var(--field); }
+
+  .song-num {
+    font-size: 0.6rem;
+    color: var(--muted);
+    width: 1.2rem;
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .song-info { flex: 1; min-width: 0; }
+
+  .song-title {
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--cream);
+  }
+
+  .song-artist {
+    font-size: 0.62rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .song-time {
+    font-size: 0.58rem;
+    color: var(--muted);
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* Show schedule */
+  .radio-show {
+    background: var(--earth);
+    border: 1px solid var(--wheat);
+    border-left: 4px solid var(--harvest);
+    padding: 1.5rem 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .show-badge {
+    background: var(--accent);
+    color: white;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    align-self: flex-start;
+    flex-shrink: 0;
+  }
+
+  .show-info { flex: 1; }
+
+  .show-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--harvest);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .show-desc {
+    font-size: 0.75rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+  }
+
+  .show-time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream);
+  }
+
+  .show-time i { color: var(--wheat); }
+
+  .countdown-wrap {
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .countdown-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .countdown {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--harvest);
+    letter-spacing: 0.1em;
+    line-height: 1;
+  }
+
   @media (max-width: 600px) {
     nav { padding: 1rem 1.2rem; }
-    .nav-links { gap: 1.2rem; }
+    .nav-links { gap: 1rem; }
     .notify-bar { flex-direction: column; }
     .notify-input { width: 100%; }
     .notify-input-group { width: 100%; }
     .gear-grid { grid-template-columns: 1fr; }
+    .radio-show { flex-direction: column; gap: 1rem; }
+    .countdown-wrap { text-align: left; }
   }
 </style>
 </head>
@@ -466,6 +768,7 @@
   <a class="nav-logo" onclick="showPage('home')">DIRT SEASON</a>
   <ul class="nav-links">
     <li><a onclick="showPage('home')" id="nav-home" class="active">Links</a></li>
+    <li><a onclick="showPage('radio')" id="nav-radio">Radio</a></li>
     <li><a onclick="showPage('merch')" id="nav-merch">Merch</a></li>
     <li><a onclick="showPage('about')" id="nav-about">About</a></li>
   </ul>
@@ -515,6 +818,18 @@
       <div class="link-info">
         <div class="link-platform">Facebook</div>
         <div class="link-label">Dirt Season</div>
+      </div>
+      <span class="link-arrow">→</span>
+    </a>
+  </div>
+
+  <p class="links-section-label">Mods</p>
+  <div class="links-grid">
+    <a class="link-card" href="https://dirtseason.itch.io/" target="_blank">
+      <span class="link-icon"><i class="fa-solid fa-puzzle-piece"></i></span>
+      <div class="link-info">
+        <div class="link-platform">itch.io</div>
+        <div class="link-label">Dirt Season Mods</div>
       </div>
       <span class="link-arrow">→</span>
     </a>
@@ -605,14 +920,12 @@
       <div class="about-handle">@DirtSeason · Est. 2026</div>
 
       <div class="about-bio">
-        <p>Grew up on a small homestead in Upstate NY — farming and tractors were just part of life from day one. That love never left.</p>
-        <p>Dirt Season is my way of sharing that world. Long days, real seasons, no filter. I do it for my family and for anyone who just gets it.</p>
-        <p>Glad you're here — we're just getting started.</p>
+        <p>Grew up in Upstate NY farm country where a love for the land, big equipment, and getting your hands dirty was just part of life. Dirt Season is where that passion lives — FS25, big operations, real dedication. New videos every Tuesday and Saturday. Come farm with me.</p>
       </div>
 
       <div class="about-stats">
         <div class="stat-box">
-          <div class="stat-num">12</div>
+          <div class="stat-num">17</div>
           <div class="stat-label">Subscribers</div>
         </div>
         <div class="stat-box">
@@ -665,7 +978,161 @@
   <footer>© <span>Dirt Season</span> — All Rights Reserved</footer>
 </section>
 
+<!-- ══ RADIO ══ -->
+<section class="page" id="page-radio">
+
+  <div class="radio-hero">
+    <img class="radio-logo" src="logo.png" alt="Dirt Season Radio" />
+    <div class="radio-title-block">
+      <div class="radio-title">DIRT SEASON<br>RADIO</div>
+      <div class="radio-subtitle">24/7 Country, Farm & Classic Hits</div>
+      <div class="radio-status">
+        <div class="status-dot" id="status-dot"></div>
+        <span class="status-text" id="status-text">Connecting...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Player -->
+  <div class="radio-player">
+    <div class="now-playing-label">Now Playing</div>
+    <div class="now-playing-song" id="np-song">—</div>
+    <div class="now-playing-artist" id="np-artist">—</div>
+    <div class="player-controls">
+      <button class="play-btn" id="play-btn" onclick="togglePlay()">
+        <i class="fa-solid fa-play" id="play-icon"></i>
+      </button>
+      <div class="volume-wrap">
+        <i class="fa-solid fa-volume-low volume-icon"></i>
+        <input class="volume-slider" type="range" min="0" max="100" value="80" oninput="setVolume(this.value)" />
+        <i class="fa-solid fa-volume-high volume-icon"></i>
+      </div>
+    </div>
+    <div class="stream-tag">Stream powered by Icecast · 128kbps MP3</div>
+  </div>
+
+  <!-- Song history / upcoming -->
+  <div class="radio-grid">
+    <div class="radio-panel">
+      <div class="radio-panel-header"><i class="fa-solid fa-clock-rotate-left"></i> &nbsp;Recently Played</div>
+      <ul class="song-list" id="history-list">
+        <li class="song-item">
+          <span class="song-num">1</span>
+          <div class="song-info">
+            <div class="song-title">—</div>
+            <div class="song-artist">—</div>
+          </div>
+          <span class="song-time">—</span>
+        </li>
+      </ul>
+    </div>
+    <div class="radio-panel">
+      <div class="radio-panel-header"><i class="fa-solid fa-forward"></i> &nbsp;Coming Up</div>
+      <ul class="song-list" id="upcoming-list">
+        <li class="song-item">
+          <span class="song-num">1</span>
+          <div class="song-info">
+            <div class="song-title">—</div>
+            <div class="song-artist">—</div>
+          </div>
+          <span class="song-time">Up next</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Weekly Show -->
+  <div class="radio-show">
+    <div class="show-badge">Weekly Show</div>
+    <div class="show-info">
+      <div class="show-name">Top 10 90s Hits</div>
+      <div class="show-desc">Every Sunday, Chris counts down this week's top 10 greatest 90s hits live on air. Call-ins, stories, and pure nostalgia.</div>
+      <div class="show-time">
+        <i class="fa-regular fa-calendar"></i>
+        Sundays at 1:00 PM EST
+      </div>
+    </div>
+    <div class="countdown-wrap">
+      <div class="countdown-label">Next Show In</div>
+      <div class="countdown" id="show-countdown">—</div>
+    </div>
+  </div>
+
+  <footer>© <span>Dirt Season</span> — All Rights Reserved</footer>
+</section>
+
 <script>
+  // ── Stream URL — swap this out when your Icecast server is ready ──
+  var STREAM_URL = 'http://YOUR_ICECAST_URL:8000/stream';
+
+  var audio = new Audio();
+  audio.volume = 0.8;
+  var playing = false;
+
+  function togglePlay() {
+    if (playing) {
+      audio.pause();
+      audio.src = '';
+      playing = false;
+      document.getElementById('play-icon').className = 'fa-solid fa-play';
+      setStatus(false);
+    } else {
+      audio.src = STREAM_URL;
+      audio.play().then(function() {
+        playing = true;
+        document.getElementById('play-icon').className = 'fa-solid fa-pause';
+        setStatus(true);
+      }).catch(function() {
+        setStatus(false);
+        document.getElementById('np-song').textContent = 'Stream offline';
+        document.getElementById('np-artist').textContent = 'Check back soon';
+      });
+    }
+  }
+
+  function setVolume(val) {
+    audio.volume = val / 100;
+  }
+
+  function setStatus(online) {
+    var dot = document.getElementById('status-dot');
+    var txt = document.getElementById('status-text');
+    if (online) {
+      dot.className = 'status-dot';
+      txt.textContent = 'Live Now';
+    } else {
+      dot.className = 'status-dot offline';
+      txt.textContent = 'Offline';
+    }
+  }
+
+  // ── Countdown to next Sunday 1PM EST ──
+  function updateCountdown() {
+    var now = new Date();
+    var est = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
+    var day = est.getDay();
+    var daysUntil = day === 0 ? 0 : 7 - day;
+    var next = new Date(est);
+    next.setDate(est.getDate() + daysUntil);
+    next.setHours(13, 0, 0, 0);
+    if (next <= est) next.setDate(next.getDate() + 7);
+    var diff = next - est;
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var str = '';
+    if (d > 0) str += d + 'd ';
+    str += pad(h) + ':' + pad(m) + ':' + pad(s);
+    document.getElementById('show-countdown').textContent = str;
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : n; }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+  setStatus(false);
+
+  // ── Page navigation ──
   function showPage(name) {
     document.querySelectorAll('.page').forEach(function(p) {
       p.classList.remove('active');
