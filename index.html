@@ -751,6 +751,55 @@
     line-height: 1;
   }
 
+  /* ── Latest Video ── */
+  .latest-video-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    max-width: 480px;
+    text-decoration: none;
+    color: var(--cream);
+    background: var(--earth);
+    border: 1px solid var(--field);
+    border-left: 3px solid var(--harvest);
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .latest-video-card:hover { border-left-color: var(--wheat); transform: translateX(4px); }
+
+  .lv-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--field);
+  }
+  .lv-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+  .lv-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+    font-size: 2rem;
+    color: var(--harvest);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .latest-video-card:hover .lv-play { opacity: 1; }
+
+  .lv-info { padding: 0.8rem 1.2rem; }
+  .lv-label { font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--wheat); margin-bottom: 0.3rem; }
+  .lv-title { font-size: 0.85rem; font-weight: 500; line-height: 1.4; }
+
+  #latest-video {
+    width: 100%;
+    max-width: 480px;
+  }
+
   @media (max-width: 600px) {
     nav { padding: 1rem 1.2rem; }
     .nav-links { gap: 1rem; }
@@ -783,6 +832,8 @@
   <p class="hero-sub">all the links, one place.</p>
 
   <div class="dirt-line"></div>
+
+  <div id="latest-video" style="width:100%;max-width:480px;"></div>
 
   <p class="links-section-label">Video</p>
   <div class="links-grid">
@@ -1090,6 +1141,27 @@
   fetchYTStats();
   setInterval(fetchYTStats, 300000);
 
+  // ── Latest Video ──
+  function fetchLatestVideo() {
+    fetch('https://yt-stats.dirtseason-business.workers.dev/latest')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.videoId) {
+          var block = document.getElementById('latest-video');
+          if (block) {
+            block.innerHTML =
+              '<a href="https://www.youtube.com/watch?v=' + data.videoId + '" target="_blank" class="latest-video-card">' +
+              '<div class="lv-thumb"><img src="https://img.youtube.com/vi/' + data.videoId + '/maxresdefault.jpg" alt="Latest Video" /><div class="lv-play"><i class="fa-solid fa-play"></i></div></div>' +
+              '<div class="lv-info"><div class="lv-label">Latest Video</div><div class="lv-title">' + data.title + '</div></div>' +
+              '</a>';
+          }
+        }
+      })
+      .catch(function(err) { console.warn('Latest video unavailable:', err); });
+  }
+
+  fetchLatestVideo();
+
   // ── Visit Counter ──
   function fetchVisits() {
     fetch('https://visit-counter.dirtseason-business.workers.dev/')
@@ -1198,10 +1270,37 @@
       setTimeout(function() { input.style.borderColor = ''; }, 1500);
       return;
     }
-    btn.textContent = "You're In ✓";
-    btn.style.background = '#4a7a2e';
+    btn.textContent = 'Signing up...';
     btn.disabled = true;
     input.disabled = true;
+
+    fetch('https://mailchimp-subscribe.dirtseason-business.workers.dev/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: input.value })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        btn.textContent = "You're In ✓";
+        btn.style.background = '#4a7a2e';
+      } else if (data.error === 'Member Exists') {
+        btn.textContent = "Already Signed Up!";
+        btn.style.background = '#c8922a';
+        input.disabled = false;
+      } else {
+        btn.textContent = 'Try Again';
+        btn.style.background = '#d4541a';
+        btn.disabled = false;
+        input.disabled = false;
+      }
+    })
+    .catch(function() {
+      btn.textContent = 'Try Again';
+      btn.style.background = '#d4541a';
+      btn.disabled = false;
+      input.disabled = false;
+    });
   }
 </script>
 </body>
