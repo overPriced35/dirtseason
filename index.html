@@ -1064,9 +1064,6 @@
 
 <script>
   // ── YouTube Stats ──
-  var YT_CHANNEL_ID = 'UCdWQ74Gz3YXQ2T031Zr175w';
-  var YT_API_KEY    = 'AIzaSyAppQpH16345zCluvAfd0NjSeAgXaBWkl8';
-
   function formatNumber(n) {
     n = parseInt(n);
     if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
@@ -1075,12 +1072,7 @@
   }
 
   function fetchYTStats() {
-    var url = 'https://www.googleapis.com/youtube/v3/channels'
-      + '?part=statistics'
-      + '&id=' + YT_CHANNEL_ID
-      + '&key=' + YT_API_KEY;
-
-    fetch(url)
+    fetch('https://yt-stats.dirtseason-business.workers.dev')
       .then(function(r) { return r.json(); })
       .then(function(data) {
         if (data.items && data.items.length > 0) {
@@ -1096,7 +1088,6 @@
   }
 
   fetchYTStats();
-  // Refresh every 5 minutes
   setInterval(fetchYTStats, 300000);
 
   // ── Stream URL — swap this out when your Icecast server is ready ──
