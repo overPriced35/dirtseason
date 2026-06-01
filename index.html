@@ -926,15 +926,15 @@
 
       <div class="about-stats">
         <div class="stat-box">
-          <div class="stat-num">17</div>
+          <div class="stat-num" id="yt-subs">—</div>
           <div class="stat-label">Subscribers</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">—</div>
+          <div class="stat-num" id="yt-videos">—</div>
           <div class="stat-label">Videos</div>
         </div>
         <div class="stat-box">
-          <div class="stat-num">—</div>
+          <div class="stat-num" id="yt-views">—</div>
           <div class="stat-label">Views</div>
         </div>
         <div class="stat-box">
@@ -1063,6 +1063,42 @@
 </section>
 
 <script>
+  // ── YouTube Stats ──
+  var YT_CHANNEL_ID = 'UCdWQ74Gz3YXQ2T031Zr175w';
+  var YT_API_KEY    = 'AIzaSyAppQpH16345zCluvAfd0NjSeAgXaBWkl8';
+
+  function formatNumber(n) {
+    n = parseInt(n);
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000)    return (n / 1000).toFixed(1) + 'K';
+    return n.toString();
+  }
+
+  function fetchYTStats() {
+    var url = 'https://www.googleapis.com/youtube/v3/channels'
+      + '?part=statistics'
+      + '&id=' + YT_CHANNEL_ID
+      + '&key=' + YT_API_KEY;
+
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.items && data.items.length > 0) {
+          var stats = data.items[0].statistics;
+          document.getElementById('yt-subs').textContent   = formatNumber(stats.subscriberCount);
+          document.getElementById('yt-videos').textContent = formatNumber(stats.videoCount);
+          document.getElementById('yt-views').textContent  = formatNumber(stats.viewCount);
+        }
+      })
+      .catch(function(err) {
+        console.warn('YouTube stats unavailable:', err);
+      });
+  }
+
+  fetchYTStats();
+  // Refresh every 5 minutes
+  setInterval(fetchYTStats, 300000);
+
   // ── Stream URL — swap this out when your Icecast server is ready ──
   var STREAM_URL = 'http://YOUR_ICECAST_URL:8000/stream';
 
