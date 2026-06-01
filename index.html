@@ -856,7 +856,7 @@
     </a>
   </div>
 
-  <footer>© <span>Dirt Season</span> — All Rights Reserved</footer>
+  <footer>© <span>Dirt Season</span> — All Rights Reserved · <i class="fa-solid fa-eye" style="color:var(--wheat);font-size:0.7rem;"></i> <span class="visit-count">—</span> visits</footer>
 </section>
 
 <!-- ══ MERCH ══ -->
@@ -901,7 +901,7 @@
     </div>
   </div>
 
-  <footer>© <span>Dirt Season</span> — All Rights Reserved</footer>
+  <footer>© <span>Dirt Season</span> — All Rights Reserved · <i class="fa-solid fa-eye" style="color:var(--wheat);font-size:0.7rem;"></i> <span class="visit-count">—</span> visits</footer>
 </section>
 
 <!-- ══ ABOUT ══ -->
@@ -976,7 +976,7 @@
     </div>
   </div>
 
-  <footer>© <span>Dirt Season</span> — All Rights Reserved</footer>
+  <footer>© <span>Dirt Season</span> — All Rights Reserved · <i class="fa-solid fa-eye" style="color:var(--wheat);font-size:0.7rem;"></i> <span class="visit-count">—</span> visits</footer>
 </section>
 
 <!-- ══ RADIO ══ -->
@@ -1059,7 +1059,7 @@
     </div>
   </div>
 
-  <footer>© <span>Dirt Season</span> — All Rights Reserved</footer>
+  <footer>© <span>Dirt Season</span> — All Rights Reserved · <i class="fa-solid fa-eye" style="color:var(--wheat);font-size:0.7rem;"></i> <span class="visit-count">—</span> visits</footer>
 </section>
 
 <script>
@@ -1089,6 +1089,22 @@
 
   fetchYTStats();
   setInterval(fetchYTStats, 300000);
+
+  // ── Visit Counter ──
+  function fetchVisits() {
+    fetch('https://visit-counter.dirtseason-business.workers.dev/')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        document.querySelectorAll('.visit-count').forEach(function(el) {
+          el.textContent = data.visits.toLocaleString();
+        });
+      })
+      .catch(function(err) {
+        console.warn('Visit counter unavailable:', err);
+      });
+  }
+
+  fetchVisits();
 
   // ── Stream URL — swap this out when your Icecast server is ready ──
   var STREAM_URL = 'http://YOUR_ICECAST_URL:8000/stream';
